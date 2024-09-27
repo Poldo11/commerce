@@ -1,4 +1,3 @@
-import BlogGrid from 'components/blog/blog-grid';
 import NineItems from 'components/grid/nine-items';
 import Footer from 'components/layout/footer';
 
@@ -13,7 +12,6 @@ export default function HomePage() {
   return (
     <>
     <NineItems />
-    <BlogGrid />
     <Footer />
     </>
   );
