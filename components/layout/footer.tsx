@@ -1,9 +1,7 @@
 import Link from 'next/link';
 
-import FooterMenu from 'components/layout/footer-menu';
-import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/shopify';
-import { Suspense } from 'react';
+import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
@@ -11,61 +9,69 @@ export default async function Footer() {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
   const skeleton = 'w-full h-6 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700';
-  const menu = await getMenu('next-js-frontend-footer-menu');
-  const copyrightName = COMPANY_NAME || SITE_NAME || '';
-
-  return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        <div>
-          <Link className="flex items-center gap-2 text-black md:pt-1 dark:text-white" href="/">
-            <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
-          </Link>
-        </div>
-        <Suspense
-          fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
+  const menu = await getMenu('next-js-frontend-footer-menu'); // Trocar
+  const copyrightName = COMPANY_NAME || SITE_NAME || 'Aboio';
+  
+    return (
+      <footer className="border-t pt-8 pb-6 text-sm text-neutral-500">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div className="flex flex-col items-center md:items-start">
+              <Link href="/" className="flex items-center gap-2 text-black dark:text-white mb-4">
+                <span className="text-2xl font-bold">{SITE_NAME || 'ABOIO'}</span>
+              </Link>
+              <div className="flex justify-center md:justify-start space-x-4 mb-6">
+                <a href="#" aria-label="Instagram" className="text-neutral-500 hover:text-black dark:hover:text-white">
+                  <Instagram size={24} />
+                </a>
+                <a href="#" aria-label="Facebook" className="text-neutral-500 hover:text-black dark:hover:text-white">
+                  <Facebook size={24} />
+                </a>
+                <a href="#" aria-label="Twitter" className="text-neutral-500 hover:text-black dark:hover:text-white">
+                  <Twitter size={24} />
+                </a>
+              </div>
+              <p className="text-sm text-center md:text-left">
+                A Aboio é um grupo editorial multimídia nascido em 2020. Nosso foco é a publicação de literatura inovadora em língua portuguesa. A direção da casa é de Leopoldo Cavalcante.
+              </p>
             </div>
-          }
-        >
-          <FooterMenu menu={menu} />
-        </Suspense>
-        <div className="md:ml-auto">
-          <a
-            className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
-            aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
-          >
-            <span className="px-3">▲</span>
-            <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
-            <span className="px-3">Deploy</span>
-          </a>
+            <div className="text-center md:text-left">
+              <ul className="space-y-2">
+                <li><Link href="/livros" className="hover:underline">livros</Link></li>
+                <li><Link href="/onde-achar" className="hover:underline">onde achar</Link></li>
+                <li><Link href="/quem-apoia" className="hover:underline">quem apoia</Link></li>
+                <li><Link href="/como-publicar" className="hover:underline">como publicar</Link></li>
+                <li><Link href="/clube-aboio" className="hover:underline">clube aboio</Link></li>
+              </ul>
+            </div>
+            <div className="text-center md:text-left">
+              <ul className="space-y-2">
+                <li><Link href="/revista" className="hover:underline">revista</Link></li>
+                <li><Link href="/aboio-acessivel" className="hover:underline">aboio acessível</Link></li>
+                <li><Link href="/contato" className="hover:underline">contato</Link></li>
+                <li><Link href="/quem-faz" className="hover:underline">quem faz?</Link></li>
+              </ul>
+            </div>
+          </div>
+  
+          <div className="border-t pt-6 text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center md:text-left order-2 md:order-1">
+                &copy; {copyrightDate} {copyrightName}
+                {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} Todos os direitos reservados.
+              </div>
+              <div className="text-center order-1 md:order-2 mb-4 md:mb-0">
+                quem fez esse site foi a Aboio.<br />
+                não é perfeito, mas é o que a gente conseguiu fazer.<br />
+                qualquer erro muito feio, manda pra gente!
+              </div>
+              <div className="text-center md:text-right order-3">
+                Todos os produtos editoriais produzidos sob a marca Aboio® são publicados pela
+                empresa Aboio Editora LTDA. CNPJ: 41.629.306/0001-99.
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
-          <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
-          </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>
-            <a href="https://github.com/vercel/commerce">View the source</a>
-          </p>
-          <p className="md:ml-auto">
-            <a href="https://vercel.com" className="text-black dark:text-white">
-              Created by ▲ Vercel
-            </a>
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
+      </footer>
+    )
+  }

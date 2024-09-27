@@ -5,6 +5,19 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      darkMode: 'class',
+      colors: {
+        light: {
+          background: '#ffffff',
+          text: '#1a202c', // Darker text for readability
+          selection: '#90cdf4', // Light blue selection color
+        },
+        dark: {
+          background: '#1a202c', // Dark background
+          text: '#ffffff', // White text
+          selection: '#f687b3', // Pink selection color for dark mode
+        },
+      },
       fontFamily: {
         sans: ['var(--font-geist-sans)']
       },

@@ -7,7 +7,12 @@ module.exports = {
         protocol: 'https',
         hostname: 'cdn.shopify.com',
         pathname: '/s/files/**'
-      }
+      },
+{
+        protocol: 'https',
+        hostname: 'cnd.sanity.io',
+        port: '',
+}
     ]
   }
 };

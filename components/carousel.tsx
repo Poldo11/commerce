@@ -2,17 +2,19 @@ import { getCollectionProducts } from 'lib/shopify';
 import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
 
+// Fetching products for the carousel
 export async function Carousel() {
-  // Collections that start with `hidden-*` are hidden from the search page.
-  const products = await getCollectionProducts({ collection: 'hidden-homepage-carousel' });
+  // Fetch products from a specific collection for the homepage carousel
+  const products = await getCollectionProducts({ collection: 'homepage-carousel' });
 
   if (!products?.length) return null;
 
-  // Purposefully duplicating products to make the carousel loop and not run out of products on wide screens.
+  // Duplicate products to make the carousel loop seamlessly and not run out on wide screens.
   const carouselProducts = [...products, ...products, ...products];
 
   return (
     <div className="w-full overflow-x-auto pb-6 pt-1">
+      {/* Carousel list that scrolls horizontally */}
       <ul className="flex animate-carousel gap-4">
         {carouselProducts.map((product, i) => (
           <li
@@ -27,8 +29,9 @@ export async function Carousel() {
                   amount: product.priceRange.maxVariantPrice.amount,
                   currencyCode: product.priceRange.maxVariantPrice.currencyCode
                 }}
-                src={product.featuredImage?.url}
-                fill
+                src={typeof product.featuredImage?.url === 'string' ? product.featuredImage.url : ''}
+                width={400}  // Ensure proper sizing for carousel images
+                height={400} // 1:1 aspect ratio
                 sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
               />
             </Link>
